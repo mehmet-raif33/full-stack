@@ -3,6 +3,7 @@ const app = express();
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const adminRoute = require('./api/Routes/adminData');
+const apiRoute = require('./api/Routes/api');
 const mongoose = require('mongoose');
 
 const url = "mongodb://localhost:27017";
@@ -23,4 +24,4 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}))
 
 app.use('/admin',adminRoute);
-
+app.use('/api',apiRoute);
