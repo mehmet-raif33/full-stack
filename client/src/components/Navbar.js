@@ -1,20 +1,22 @@
-import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
+import { useSelector } from 'react-redux';
 
 function Navbar() {
 
-    const [userHere,setUserHere] = useState(false);
+    const userData = useSelector(state => state.userInfoData.isHere)
 
     return (
         <div className='bg-sky-300 justify-between flex flex-row px-10 items-center h-[60px]'>
             <h2 className='inline'>
-                <NavLink to='homepage'>
-                    <img src='zyro-image.png' alt='asd' />
+                <NavLink to='/'>
+                    <h2 className='p-2 bg-yellow-300 rounded-sm italic'>
+                        MEMOCIAL MEDIA
+                    </h2>
                 </NavLink>
             </h2>
             <div className='flex items-center h-14 justify-between'>
                 {
-                    userHere ? 
+                    userData ? 
                     <div className='flex flex-row'>
                         <NavLink to='/homepage' className={ ({ isActive }) => isActive ? 'bg-yellow-600 rounded-sm p-[2px] ml-2' : 'bg-yellow-100 rounded-sm p-[2px] ml-2' }>
                             <img alt='sadasd' src="https://img.icons8.com/ios/35/000000/home--v1.png"/>

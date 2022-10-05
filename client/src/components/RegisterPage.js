@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 function RegisterPage() {
     return (
-        <motion.div className='flex justify-center items-center h-[653px] bg-green-400'>
+        <motion.div className='flex justify-center items-center h-[643px] bg-green-400'>
             <motion.form 
             className='flex flex-col bg-slate-200 w-[400px] h-100 p-10 rounded-sm mb-20'
             initial={{

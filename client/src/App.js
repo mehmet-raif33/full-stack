@@ -5,13 +5,16 @@ import RegisterPage from './components/RegisterPage';
 import HomePage from './components/HomePage';
 import Profile from './components/Profile';
 import Settigns from './components/Settings';
-import Notfound from './components/Notfound';
+import Notfound from './components/extraPages/Notfound';
+import LandingPage from './components/LandingPage';
 
 function App() {
+  
   return (
     <div>
       <Navbar />
         <Routes>
+          <Route path='/' element={<LandingPage />} />
           <Route path='/homepage' element={<HomePage />} />
           <Route path='/login' element={<LoginPage />} />
           <Route path='/register' element={<RegisterPage />} />
