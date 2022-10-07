@@ -18,7 +18,14 @@ const UserSlice = createSlice({
         isHere: true,
         loading: false
     },
-    reducers:{},
+    reducers:{
+        logout: (state , action) => {
+            state = action.payload;
+        },
+        changeToImage: (state , action) => {
+            state.profileImage = action.payload;
+        }
+    },
     extraReducers: (builder) => {
         builder.addCase(addUser.pending, (state, action) => {
             state.loading = true
@@ -33,4 +40,5 @@ const UserSlice = createSlice({
     }
 })
 
+export const { logout , changeToImage } = UserSlice.actions;
 export default UserSlice.reducer;
