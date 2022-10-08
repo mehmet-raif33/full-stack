@@ -38,7 +38,7 @@ function Profile() {
                 transition={{
                     duration: 0.4,
                 }}
-                src={userData.profileImage} className='w-[150px] rounded-full'>
+                src={userData.imageData} className='w-[150px] rounded-full'>
 
                 </motion.img>
                 <motion.h2 className='text-2xl'>
