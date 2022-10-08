@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { useSelector , useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { changeToImage } from '../redux/slices/userInfo';
+import { base64 } from '../hooks/useBase';
 
 function Profile() {
 
@@ -11,28 +12,17 @@ function Profile() {
     const [image,setimage] = useState(null);
   
     const onChangeMethod = async (e) => {
-      const image = await e.target.files[0];
-      const format = await base64(image)
-      console.log(format)
-      setimage(format);
-    }
-
-    const base64 = (file) => {
-      return new Promise(async (resolve, reject) => {
-        const fileReader = new FileReader();
-        fileReader.readAsDataURL(file);
-        fileReader.onload = () => {
-          resolve(fileReader.result);
-          setimage(fileReader.result);
-        }
-        fileReader.onerror = (error) => {
-          reject(error)
-        }
-      })
+      let resim = await e.target.files[0];
+      await base64(resim)
+      .then(result => {
+        console.log(resim)
+        setimage(result);
+      });
+      
     }
     
-    const changeThePicture = () => {
-        dispatch(changeToImage(image))
+    const changeThePicture = async () => {
+      dispatch(changeToImage(image))
     }
 
     return (

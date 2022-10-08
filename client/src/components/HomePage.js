@@ -8,6 +8,7 @@ function HomePage() {
     const onChangeFunction = async (e) => {
       const file = await e.target.files[0];
       const format = await base64(file)
+      setimage(format);
       console.log(format)
       return format;
     }
@@ -18,7 +19,6 @@ function HomePage() {
         fileReader.readAsDataURL(file);
         fileReader.onload = () => {
           resolve(fileReader.result);
-          setimage(fileReader.result);
         }
         fileReader.onerror = (error) => {
           reject(error)
