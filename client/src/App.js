@@ -18,7 +18,7 @@ function App() {
           <Route path='/homepage' element={<HomePage />} />
           <Route path='/login' element={<LoginPage />} />
           <Route path='/register' element={<RegisterPage />} />
-          <Route path='/profile/:username' element={<ProfileLayout />} />
+          <Route path='/profile' element={<ProfileLayout />} />
           <Route path='/settings' element={<Settigns />} />
           <Route path='*' element={<Notfound />} />
         </Routes>

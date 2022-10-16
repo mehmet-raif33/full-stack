@@ -3,7 +3,7 @@ const app = express();
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const UserRoute = require('./api/Routes/userDefaultRoute')
+const authRoute = require('./api/Routes/authRoutes');
 
 const url = "mongodb://localhost:27017/CRUD_API";
 
@@ -14,12 +14,19 @@ mongoose.connect(url, () => {
     })
 });
 
-app.use('/',UserRoute);
-
 app.use(cors({
     origin:'http://localhost:3000',
     methods:['get','post']
 }));
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended:false}))
+app.use(bodyParser.json({
+    limit: '50mb'
+}));
+
+app.use(bodyParser.urlencoded({
+    limit: '50mb',
+    extended:true,
+    parameterLimit: 100000
+}))
+
+app.use('/user', authRoute)

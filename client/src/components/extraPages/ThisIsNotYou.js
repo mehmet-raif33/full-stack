@@ -2,7 +2,7 @@ import React from 'react'
 import { motion } from 'framer-motion';
 import { Player } from '@lottiefiles/react-lottie-player';
 
-function ThisIsNotYou({whoIs}) {
+function ThisIsNotYou() {
   return (
     <motion.div>
         <Player
@@ -13,7 +13,7 @@ function ThisIsNotYou({whoIs}) {
         >
         </Player>
         <h2 className='text-center text-2xl'>
-            This Is Not You {whoIs} !!!
+            This Is Not You !!!
         </h2>
         
     </motion.div>

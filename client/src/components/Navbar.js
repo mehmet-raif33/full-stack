@@ -3,8 +3,8 @@ import { useSelector } from 'react-redux';
 
 function Navbar() {
 
-    const userData = useSelector(state => state.userInfoData.isHere)
-    const userName = useSelector(state => state.userInfoData.username)
+    const userData = useSelector(state => state.userInfo.state.isHere)
+    const userName = useSelector(state => state.userInfo.info.username)
 
     return (
         <div className='bg-sky-300 justify-between flex flex-row px-10 items-center h-[60px]'>

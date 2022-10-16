@@ -1,21 +1,19 @@
 import React from 'react'
-import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ThisIsNotYou from './extraPages/ThisIsNotYou';
 import Profile from './Profile';
 
 function ProfileLayout() {
 
-  const userIsHere = useSelector(state => state.userInfoData.username)
-  const { username } = useParams();
+  const userIsHere = useSelector(state => state.userInfo.state.isHere)
 
   return (
     <div>
       {
-        username === userIsHere ? 
+        userIsHere ? 
         <Profile />
         : 
-        <ThisIsNotYou whoIs={username} />
+        <ThisIsNotYou />
       }
     </div>
   )

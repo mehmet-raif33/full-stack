@@ -1,12 +1,11 @@
 import { motion } from 'framer-motion';
 import { useSelector , useDispatch } from 'react-redux';
 import { useState } from 'react';
-import { changeToImage } from '../redux/slices/userInfo';
 import { base64 } from '../hooks/useBase';
 
 function Profile() {
 
-    const userData = useSelector(state => state.userInfoData)
+    const userData = useSelector(state => state.userInfo.info)
     const dispatch = useDispatch();
 
     const [image,setimage] = useState(null);
@@ -22,12 +21,12 @@ function Profile() {
     }
     
     const changeThePicture = async () => {
-      dispatch(changeToImage(image))
+        console.log('changeThePicture Çalıştı!')
     }
 
     return (
         <motion.div className='w-[100%] bg-neutral-300 flex flex-row justify-center'>
-            <motion.div className='flex flex-row justify-between w-[800px] bg-emerald-300 px-10 py-5'>
+            <motion.div className='flex flex-row justify-evenly w-[800px] bg-emerald-300 px-10 py-5'>
                 <motion.img 
                 initial={{
                     opacity: 0.5
@@ -38,19 +37,19 @@ function Profile() {
                 transition={{
                     duration: 0.4,
                 }}
-                src={userData.imageData} className='w-[150px] rounded-full'>
-
+                src={userData.imgUrl} 
+                className='w-[150px] rounded-full'>
                 </motion.img>
-                <motion.h2 className='text-2xl'>
-                    {userData.username}
-                </motion.h2>
+                <motion.div className='bg-sky-200 p-3 rounded-md'>
+                    <motion.h2 className='text-2xl'>
+                        {userData.username}
+                    </motion.h2>
+                    <motion.h2>
+                        {userData.mail}
+                    </motion.h2>
+                </motion.div>
+                
             </motion.div>
-            <div>
-                <input type='file' onChange={onChangeMethod} />
-                <button onClick={changeThePicture}>
-                    Save
-                </button>
-            </div>
         </motion.div>
 
         

@@ -9,7 +9,7 @@ function HomePage() {
       const file = await e.target.files[0];
       const format = await base64(file)
       setimage(format);
-      console.log(format)
+      console.log(file)
       return format;
     }
 

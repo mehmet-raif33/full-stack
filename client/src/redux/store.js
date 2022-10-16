@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import userInfo from './slices/userInfo';
+import signInSignUpSlice from './slices/userSlice';
 
 export const veriDeposu = configureStore({
     reducer: {
-        userInfoData : userInfo
+        userInfo: signInSignUpSlice
     }
 })
