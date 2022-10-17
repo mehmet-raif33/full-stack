@@ -26,13 +26,18 @@ export const signInSignUpSlice = createSlice({
         },
         state: {
             isHere: false,
-            loading: false
+            loading: false,
+            errorMessage: "Wrong mail or password! Please check you account information!!",
+            stateCodeOflogin: 2,
+            stateCodeOfRegister: 2,
         }
     },
     reducers: {
         logout: (state, action) => {
             state.info = emptyInfo;
             state.state.isHere = false;
+            state.state.stateCodeOfRegister = 2;
+            state.state.stateCodeOflogin = 2;
         }
     },
     extraReducers: (builder) => {
@@ -41,31 +46,45 @@ export const signInSignUpSlice = createSlice({
         })
         builder.addCase(signInSignUp.fulfilled, (state, action) => {
             if(action.payload.data.responseType === 'login'){
-                let newUser = {
-                    username: action.payload.data.username, 
-                    name: action.payload.data.name,
-                    surname: action.payload.data.surname,
-                    mail: action.payload.data.mail,
-                    password: action.payload.data.password,
-                    imgUrl: action.payload.data.imgUrl
+                if (action.payload.data.statecode === 0){
+                    state.state.stateCodeOflogin = 0;
+                    console.log('hata hata');
+                    state.state.loading = false;
+                } else{
+                    let newUser = {
+                        username: action.payload.data.username, 
+                        name: action.payload.data.name,
+                        surname: action.payload.data.surname,
+                        mail: action.payload.data.mail,
+                        password: action.payload.data.password,
+                        imgUrl: action.payload.data.imgUrl
+                    }
+                    state.info = newUser;
+                    state.state.stateCodeOflogin = 1;
+                    state.state.isHere= true;
+                    state.state.loading = false
                 }
-                state.info = newUser;
-                state.state.isHere= true;
-                state.state.loading = false
+                
             } else {
-                let newUser = {
-                    username: action.payload.data.username, 
-                    name: action.payload.data.name,
-                    surname: action.payload.data.surname,
-                    mail: action.payload.data.mail,
-                    password: action.payload.data.password,
-                    imgUrl: action.payload.data.imgUrl
+                if (action.payload.data.statecode === 0){
+                    state.state.stateCodeOfRegister = 0;
+                    state.state.errorMessage = 'This mail already uses for other used.'
+                    state.state.loading = false;
+                } else{
+                    let newUser = {
+                        username: action.payload.data.username, 
+                        name: action.payload.data.name,
+                        surname: action.payload.data.surname,
+                        mail: action.payload.data.mail,
+                        password: action.payload.data.password,
+                        imgUrl: action.payload.data.imgUrl
+                    }
+                    state.info = newUser;
+                    state.state.isHere= true;
+                    state.state.loading = false
+                    state.state.stateCodeOfRegister = 1;
                 }
-                state.info = newUser;
-                state.state.isHere= true;
-                state.state.loading = false
             }
-            
         })
         builder.addCase(signInSignUp.rejected, (state, action) => {
             console.log('We have a Problem Here!!')

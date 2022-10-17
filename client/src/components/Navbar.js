@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 function Navbar() {
 
     const userData = useSelector(state => state.userInfo.state.isHere)
-    const userName = useSelector(state => state.userInfo.info.username)
 
     return (
         <div className='bg-sky-300 justify-between flex flex-row px-10 items-center h-[60px]'>
@@ -22,7 +21,7 @@ function Navbar() {
                         <NavLink to='/homepage' className={ ({ isActive }) => isActive ? 'bg-yellow-600 rounded-sm p-[2px] ml-2' : 'bg-yellow-100 rounded-sm p-[2px] ml-2' }>
                             <img alt='sadasd' src="https://img.icons8.com/ios/35/000000/home--v1.png"/>
                         </NavLink>
-                        <NavLink to={`/profile/${userName}`}  className={ ({ isActive }) => isActive ? 'bg-yellow-600 rounded-sm p-[2px] ml-2' : 'bg-yellow-100 rounded-sm p-[2px] ml-2' }>
+                        <NavLink to="/profile"  className={ ({ isActive }) => isActive ? 'bg-yellow-600 rounded-sm p-[2px] ml-2' : 'bg-yellow-100 rounded-sm p-[2px] ml-2' }>
                             <img alt='sadasd' src="https://img.icons8.com/material-outlined/35/000000/administrator-male.png"/>
                         </NavLink>
                         <NavLink to='/settings' className={ ({ isActive }) => isActive ? 'bg-yellow-600 rounded-sm p-[2px] ml-2' : 'bg-yellow-100 rounded-sm p-[2px] ml-2' }>
