@@ -38,6 +38,7 @@ export const signInSignUpSlice = createSlice({
             state.state.isHere = false;
             state.state.stateCodeOfRegister = 2;
             state.state.stateCodeOflogin = 2;
+            localStorage.removeItem('mail');
         }
     },
     extraReducers: (builder) => {
@@ -63,12 +64,13 @@ export const signInSignUpSlice = createSlice({
                     state.state.stateCodeOflogin = 1;
                     state.state.isHere= true;
                     state.state.loading = false
+                    localStorage.setItem('mail',action.payload.data.mail);
                 }
                 
-            } else {
+            } else if(action.payload.data.responseType == 'register') {
                 if (action.payload.data.statecode === 0){
                     state.state.stateCodeOfRegister = 0;
-                    state.state.errorMessage = 'This mail already uses for other used.'
+                    state.state.errorMessage = 'This mail or username already uses for other used.'
                     state.state.loading = false;
                 } else{
                     let newUser = {
@@ -83,7 +85,21 @@ export const signInSignUpSlice = createSlice({
                     state.state.isHere= true;
                     state.state.loading = false
                     state.state.stateCodeOfRegister = 1;
+                    localStorage.setItem('mail',action.payload.data.mail);
                 }
+            } else{
+                let newUser = {
+                    username: action.payload.data.username, 
+                    name: action.payload.data.name,
+                    surname: action.payload.data.surname,
+                    mail: action.payload.data.mail,
+                    password: action.payload.data.password,
+                    imgUrl: action.payload.data.imgUrl
+                }
+                state.info = newUser;
+                state.state.stateCodeOflogin = 1;
+                state.state.isHere= true;
+                state.state.loading = false
             }
         })
         builder.addCase(signInSignUp.rejected, (state, action) => {

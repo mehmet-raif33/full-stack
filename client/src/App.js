@@ -7,9 +7,27 @@ import ProfileLayout from './components/ProfileLayout';
 import Settigns from './components/Settings';
 import Notfound from './components/extraPages/Notfound';
 import LandingPage from './components/LandingPage';
+import { signInSignUp } from './redux/slices/userSlice';
+import { useDispatch } from 'react-redux';
+
+
 
 function App() {
-  
+
+  const dispatch = useDispatch();
+
+  const isSomeoneHere = () => {
+    const mail = localStorage.getItem('mail')
+    if(mail == null) {
+      console.log('users not found!')
+    } else{
+      console.log('user is here.')
+      dispatch(signInSignUp({clientMail: mail, requestType: 'userHere'}))
+    }
+  }
+
+  isSomeoneHere();
+
   return (
     <div>
       <Navbar />
