@@ -64,7 +64,7 @@ export const signInSignUpSlice = createSlice({
                     state.state.stateCodeOflogin = 1;
                     state.state.isHere= true;
                     state.state.loading = false
-                    localStorage.setItem('userIsHere',action.payload.data.jws);
+                    localStorage.setItem('userIsHere',action.payload.data.jwt);
                 }
                 
             } else if(action.payload.data.responseType === 'register') {
@@ -92,7 +92,7 @@ export const signInSignUpSlice = createSlice({
                     state.state.isHere= true;
                     state.state.loading = false
                     state.state.stateCodeOfRegister = 1;
-                    localStorage.setItem('userIsHere',action.payload.data.jws);
+                    localStorage.setItem('userIsHere',action.payload.data.jwt);
                 }
             } else{
                 let newUser = {

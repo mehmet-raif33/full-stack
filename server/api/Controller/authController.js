@@ -1,6 +1,7 @@
 const UserModel = require("../Model/userModel");
 require('dotenv').config();
 const jwt_code = process.env.JWT_NAME;
+const jwt = require('jsonwebtoken')
 
 // --------------- THIS METHOD IS FILTERED THE REQUEST AND CHANGED TO END ---------------------------------
 
@@ -17,29 +18,30 @@ const signInSignUp = async (req, res) => {
 
 // THIS METHOD IS FOR THE LOGIN LOGIC.
 
-const login = (req, res) => {
-  console.log("login");
-  UserModel.findOne({ mail: req.body.mail, password: req.body.password })
-    .then((person) => {
-      const token = jws.sign({mail: req.body.mail}, jwt_code)
-      const realToken = 'Asade ' + token;
-      const newUser = {
-        statecode: 1,
-        responseType: "login",
-        jws: realToken,
-        username: person.username,
-        name: person.name,
-        surname: person.surname,
-        mail: person.mail,
-        password: person.password,
-        imgUrl: person.imgUrl,
-      };
-      console.log(realToken)
-      return res.json(newUser);
+const login = async (req, res) => {
+  console.log("login fonksiyonu çalışıyor");
+  await UserModel.findOne({ mail: req.body.mail, password: req.body.password })
+    .then( async (person) => {
+      if(person){
+        const token = jwt.sign({mail: req.body.mail}, jwt_code)
+        const realToken = 'Asade ' + token;
+        const newUser = {
+          statecode: 1,
+          responseType: "login",
+          jwt: realToken,
+          username: person.username,
+          name: person.name,
+          surname: person.surname,
+          mail: person.mail,
+          password: person.password,
+          imgUrl: person.imgUrl
+        };
+        console.log(newUser)
+        return res.json(newUser);
+      } else {
+        return res.json({ statecode: 0, responseType: "login", messa:'sadad' })
+      }
     })
-    .catch((err) => {
-      return res.json({ statecode: 0, responseType: "login" });
-    });
 };
 
 // THIS METHOD IS FOR THE REGISTER LOGIC.
@@ -65,7 +67,7 @@ const register = async (req, res) => {
             };
             const User = new UserModel(newUser);
             await User.save();
-            const token = jws.sign({mail: req.body.mail}, jwt_code)
+            const token = jwt.sign({mail: req.body.mail}, jwt_code)
             const realToken = 'Asade ' + token;
             return res.json({
               statecode: 1,
@@ -101,7 +103,7 @@ const register = async (req, res) => {
 // THIS METHOD IS FOR THE UX.
 
 const userHere = async (req,  res) => {
-    await UserModel.findOne({mail: req.body.mail}).then((human) => {
+    await UserModel.findOne({mail: req.body.tokenMail}).then((human) => {
       if (human === null) {
         return res.json({ message: "You are a coward!!" });
       } else {

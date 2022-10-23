@@ -11,8 +11,8 @@ const jwt_verify = (req, res, next) => {
             jws.verify(token, jwt_code, async (err, user) => {
                 if(user){
                     console.log('kullanıcı var')
-                    let mail = user.mail;
-                    req.body.mail = mail;
+                    let tokenMail = user.mail;
+                    req.body.tokenMail = tokenMail;
                     next();
                 } else{
                     return res.json({message:'You are not us!!! '})

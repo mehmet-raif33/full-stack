@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { base64 } from '../hooks/useBase';
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../redux/slices/userSlice';
-import PostList from './PostList';
 
 function Profile() {
 
@@ -62,10 +61,7 @@ function Profile() {
                         </button>
                     </motion.div>
                 </motion.div>
-            </motion.div>   
-            <motion.div>
-                <PostList />
-            </motion.div>
+            </motion.div> 
         </div>
         
   )
