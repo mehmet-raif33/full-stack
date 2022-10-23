@@ -9,7 +9,7 @@ import Notfound from './components/extraPages/Notfound';
 import LandingPage from './components/LandingPage';
 import { signInSignUp } from './redux/slices/userSlice';
 import { useDispatch } from 'react-redux';
-
+import { ContextProvider } from './Context/globalContext';
 
 
 function App() {
@@ -17,12 +17,12 @@ function App() {
   const dispatch = useDispatch();
 
   const isSomeoneHere = () => {
-    const mail = localStorage.getItem('mail')
-    if(mail == null) {
+    const userIsHere = localStorage.getItem('userIsHere')
+    if(userIsHere == null) {
       console.log('users not found!')
     } else{
       console.log('user is here.')
-      dispatch(signInSignUp({clientMail: mail, requestType: 'userHere'}))
+      dispatch(signInSignUp({jwt: userIsHere, sendState: 'userHere'}))
     }
   }
 
@@ -30,7 +30,8 @@ function App() {
 
   return (
     <div>
-      <Navbar />
+      <ContextProvider>
+        <Navbar />
         <Routes>
           <Route path='/' element={<LandingPage />} />
           <Route path='/homepage' element={<HomePage />} />
@@ -40,6 +41,8 @@ function App() {
           <Route path='/settings' element={<Settigns />} />
           <Route path='*' element={<Notfound />} />
         </Routes>
+      </ContextProvider>
+      
     </div>
   );
 }

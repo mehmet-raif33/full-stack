@@ -10,6 +10,6 @@ root.render(
     <Provider store={veriDeposu}>
         <BrowserRouter>
             <App /> 
-        </BrowserRouter>
+        </BrowserRouter>  
     </Provider>
  );   

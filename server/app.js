@@ -4,8 +4,13 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const authRoute = require('./api/Routes/authRoutes');
+const dotenv = require('dotenv');
+const jwt_verify = require('./api/Middlewares/jwt');
+
+
 
 const url = "mongodb://localhost:27017/CRUD_API";
+dotenv.config();
 
 mongoose.connect(url, () => {
     console.log('MongoDb bağlantısı oluşturldu!!')
@@ -29,4 +34,4 @@ app.use(bodyParser.urlencoded({
     parameterLimit: 100000
 }))
 
-app.use('/user', authRoute)
+app.use('/user', jwt_verify , authRoute)

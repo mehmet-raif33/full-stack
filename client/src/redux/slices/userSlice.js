@@ -2,8 +2,8 @@ import { createAsyncThunk , createSlice } from "@reduxjs/toolkit";
 import axios from 'axios';
 
 export const signInSignUp = createAsyncThunk('signInSignUp', async (actionData) => {
-    let response = await axios.post('http://localhost:3001/user/signInSignUp',actionData)
-    return response;
+        let response = await axios.post('http://localhost:3001/user/signInSignUp', actionData)
+        return response;
 })
 
 const emptyInfo = {
@@ -38,7 +38,7 @@ export const signInSignUpSlice = createSlice({
             state.state.isHere = false;
             state.state.stateCodeOfRegister = 2;
             state.state.stateCodeOflogin = 2;
-            localStorage.removeItem('mail');
+            localStorage.removeItem('userIsHere');
         }
     },
     extraReducers: (builder) => {
@@ -64,14 +64,21 @@ export const signInSignUpSlice = createSlice({
                     state.state.stateCodeOflogin = 1;
                     state.state.isHere= true;
                     state.state.loading = false
-                    localStorage.setItem('mail',action.payload.data.mail);
+                    localStorage.setItem('userIsHere',action.payload.data.jws);
                 }
                 
-            } else if(action.payload.data.responseType == 'register') {
+            } else if(action.payload.data.responseType === 'register') {
                 if (action.payload.data.statecode === 0){
-                    state.state.stateCodeOfRegister = 0;
-                    state.state.errorMessage = 'This mail or username already uses for other used.'
-                    state.state.loading = false;
+                    if (action.payload.data.errorCase === 'mail') {
+                        state.state.stateCodeOfRegister = 0;
+                        state.state.errorMessage = action.payload.data.message;
+                        state.state.loading = false;  
+                    } else {
+                        state.state.stateCodeOfRegister = 0;
+                        state.state.errorMessage = action.payload.data.message;
+                        state.state.loading = false;
+                    }
+                    
                 } else{
                     let newUser = {
                         username: action.payload.data.username, 
@@ -85,7 +92,7 @@ export const signInSignUpSlice = createSlice({
                     state.state.isHere= true;
                     state.state.loading = false
                     state.state.stateCodeOfRegister = 1;
-                    localStorage.setItem('mail',action.payload.data.mail);
+                    localStorage.setItem('userIsHere',action.payload.data.jws);
                 }
             } else{
                 let newUser = {
