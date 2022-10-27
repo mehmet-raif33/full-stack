@@ -15,7 +15,6 @@ function Notfound() {
             scale:1,
             opacity:1
         }}
-        className='mt-10'
         >
             <Player
             autoplay

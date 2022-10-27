@@ -1,7 +1,5 @@
 import { motion } from 'framer-motion';
 import { useSelector , useDispatch } from 'react-redux';
-import { useState } from 'react';
-import { base64 } from '../hooks/useBase';
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../redux/slices/userSlice';
 
@@ -11,29 +9,13 @@ function Profile() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const [image,setimage] = useState(null);
-  
-    const onChangeMethod = async (e) => {
-      let resim = await e.target.files[0];
-      await base64(resim)
-      .then(result => {
-        console.log(resim)
-        setimage(result);
-      });
-      
-    }
-    
-    const changeThePicture = async () => {
-        console.log('changeThePicture Çalıştı!')
-    }
-
     const whenClickTheButton = async () => {
         await dispatch(logout())
-        await navigate('/homepage')
+        await navigate('/')
     }
 
     return (
-        <div className='flex flex-col'>
+        <div className='flex flex-col pt-[60px]'>
             <motion.div className='w-[100%] bg-neutral-300 flex flex-row justify-center'>
                 <motion.div className='bg-gradient-to-tl from-yellow-500 to-sky-300 flex flex-row justify-evenly w-[800px] bg-emerald-300 px-10 py-5'>
                     <motion.img 

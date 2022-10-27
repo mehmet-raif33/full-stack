@@ -6,6 +6,7 @@ import HomePage from './components/HomePage';
 import ProfileLayout from './components/ProfileLayout';
 import Settigns from './components/Settings';
 import Notfound from './components/extraPages/Notfound';
+import CreatePost from './components/CreatePost';
 import LandingPage from './components/LandingPage';
 import { signInSignUp } from './redux/slices/userSlice';
 import { useDispatch } from 'react-redux';
@@ -29,12 +30,13 @@ function App() {
   isSomeoneHere();
 
   return (
-    <div>
+    <div className="font-myFont">
       <ContextProvider>
         <Navbar />
         <Routes>
           <Route path='/' element={<LandingPage />} />
           <Route path='/homepage' element={<HomePage />} />
+          <Route path='/create-post' element={<CreatePost />} />
           <Route path='/login' element={<LoginPage />} />
           <Route path='/register' element={<RegisterPage />} />
           <Route path='/profile' element={<ProfileLayout />} />

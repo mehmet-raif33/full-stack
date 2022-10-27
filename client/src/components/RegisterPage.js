@@ -9,7 +9,6 @@ function RegisterPage() {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const data = useSelector(state => state.userInfo.info)
     const errormessage = useSelector(state => state.userInfo.state.errorMessage)
     const errorCode = useSelector(state => state.userInfo.state.stateCodeOfRegister)
 
@@ -36,7 +35,7 @@ function RegisterPage() {
         await dispatch(signInSignUp(newUser));
     }
 
-    errorCode === 1 && navigate(`/profile`)
+    errorCode === 1 && navigate(`/homepage`)
     
     const onChangeImage = (e) => {
         base64(e.target.files[0])

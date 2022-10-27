@@ -4,8 +4,6 @@ const Schema = mongoose.Schema;
 
 const postSchema = new Schema({
     postDescription: String,
-    postAuthor: String,
-    postAuthorImage: String,
     like: Number,
     unlike: Number,
     CommentNumber: Number,

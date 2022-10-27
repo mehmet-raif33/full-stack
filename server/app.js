@@ -6,8 +6,8 @@ const mongoose = require('mongoose');
 const authRoute = require('./api/Routes/authRoutes');
 const dotenv = require('dotenv');
 const jwt_verify = require('./api/Middlewares/jwt');
-
-
+const jwt_post_verify = require('./api/Middlewares/postJWT');
+const PostRoute = require('./api/Routes/postRoutes');
 
 const url = "mongodb://localhost:27017/CRUD_API";
 dotenv.config();
@@ -35,3 +35,4 @@ app.use(bodyParser.urlencoded({
 }))
 
 app.use('/user', jwt_verify , authRoute)
+app.use('/access-data', jwt_post_verify , PostRoute)

@@ -21,7 +21,7 @@ function LoginPage() {
         
     }
 
-    waitCode === 1 && navigate(`/profile`);
+    waitCode === 1 && navigate(`/homepage`);
 
   return (
     <motion.div className='flex justify-center items-center h-[643px] bg-green-400'>
