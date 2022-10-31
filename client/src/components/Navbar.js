@@ -6,7 +6,7 @@ function Navbar() {
     const userData = useSelector(state => state.userInfo.state.isHere)
 
     return (
-        <div className='px-10 bg-sky-300 fixed w-full mb-[100px] z-10'>
+        <div className='px-10 bg-sky-300 sticky w-full h-[60px] z-10'>
             <div className='bg-sky-300 justify-between flex flex-row items-center h-[60px]'>
                 <h2 className='inline'>
                     <NavLink to='/'>

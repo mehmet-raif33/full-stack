@@ -23,7 +23,7 @@ const login = async (req, res) => {
   await UserModel.findOne({ mail: req.body.mail, password: req.body.password })
     .then( async (person) => {
       if(person){
-        const token = jwt.sign({mail: req.body.mail}, jwt_code)
+        const token = await jwt.sign({mail: req.body.mail}, jwt_code)
         const realToken = 'Asade ' + token;
         const newUser = {
           statecode: 1,
@@ -103,9 +103,12 @@ const register = async (req, res) => {
 // THIS METHOD IS FOR THE UX.
 
 const userHere = async (req,  res) => {
+  console.log('userHere is working now')
     await UserModel.findOne({mail: req.body.tokenMail}).then((human) => {
+      console.log(human)
       if (human === null) {
         return res.json({ message: "You are a coward!!" });
+        console.log("human null'a eşit")
       } else {
         let newUser = {
           responseType: "userHere",
@@ -119,6 +122,11 @@ const userHere = async (req,  res) => {
         console.log("UserInfo sended!!");
         return res.json(newUser);
       }
+  }).catch((err) => {
+    console.log('catch is working now' + err)
+    return res.json({
+      message:err
+    });
   })
   
 };
